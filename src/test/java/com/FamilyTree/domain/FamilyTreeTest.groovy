@@ -4,11 +4,10 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 
-public class PersonNodeTest {
+public class FamilyTreeTest {
 	Tree tree
 	PersonNode nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary
-	
-	
+		
 	def generateTree(){		
 		nancy = new PersonNode("Nancy")
 		adam = new PersonNode("Adam")
@@ -36,44 +35,45 @@ public class PersonNodeTest {
 		tree = new FamilyTree(nancy)
 	}
 	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		
+	}
+	
 	@Before
 	public void setUp() throws Exception {
-		generateTree()
+		generateTree()		
 	}
 
-
+	@Test
+	public void testGetNodeByName(){
+		assert tree.getNodeByName("Not in tree") == null
+		assert tree.getNodeByName("Nancy") == nancy			
+	}
+	@Test
+	public void testGetNodesWithNoSiblings(){
+		def nodesWithNoSiblings = tree.getNodesWithNoSiblings()
+		assert nodesWithNoSiblings.size() == 3
+		assert nodesWithNoSiblings.containsAll([nancy, kevin, mary])		
+	}
+	@Test
+	public void testGetNodesWithNoChildren(){
+		def nodesWithNoChildren = tree.getNodesWithNoChildren()
+		assert nodesWithNoChildren.size == 8
+		assert nodesWithNoChildren.containsAll(patrick, robert, mary, samuel, aaron, adam, catherine, joseph);
+	}
+	@Test
+	public void testGetNodeWithMostGrandChildren(){
+		assert tree.getNodeWithMostGrandChildren() == jill
+	}
+		
 	@Test
 	public void testGetRoot(){
-		[nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary]
-		.each{ person ->			
-			assert person.getRoot() == nancy
-		}
+		assert tree.getRoot() == nancy
 	}
+	
 	@Test
-	public void testGetChildren(){
-		assert patrick.getChildren() == null
-		assert nancy.getChildren().containsAll(adam, jill, carl)
-		assert kevin.getChildren().containsAll(samuel, george, james, aaron)
-		assert carl.getChildren().containsAll(catherine, joseph)
-		assert george.getChildren().containsAll(patrick, robert)
-	}
-	@Test
-	public void testGetParent(){
-		assert nancy.getParent() == null
-		assert adam.getParent() == nancy
-		assert james.getParent() == kevin
-	}
-	@Test
-	public void testGetGrandParent(){
-		assert nancy.getGrandParent() == null
-		assert adam.getGrandParent() == null
-		assert kevin.getGrandParent() == nancy
-		assert george.getGrandParent() == jill
-		assert patrick.getGrandParent() == kevin 
-	}
-	@Test
-	public void testGetName(){
-		assert nancy.getName() == "Nancy"
-		assert mary.getName() == "Mary"
+	public void testDrawFamilyTree(){
+		
 	}
 }
