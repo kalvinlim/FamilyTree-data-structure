@@ -24,13 +24,13 @@ public class FamilyTreeTest {
 		robert = new PersonNode("Patrick")
 		mary = new PersonNode("Mary")
 		
-		nancy.children([adam, jill, carl])
-		jill.children([kevin])
-		carl.children([catherine, joseph])
+		nancy.addChildren([adam, jill, carl])
+		jill.addChildren([kevin])
+		carl.addChildren([catherine, joseph])
 		
-		kevin.children([samuel, george, james, aaron])
-		george.children([patrick, rober])
-		james.child(mary)
+		kevin.addChildren([samuel, george, james, aaron])
+		george.addChildren([patrick, robert])
+		james.addChild(mary)
 								
 		tree = new FamilyTree(nancy)
 	}

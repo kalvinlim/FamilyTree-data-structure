@@ -4,10 +4,12 @@ import java.util.List;
 
 public interface Node {
 	public Node getRoot();
+	public void setRoot(Node root);
 	public List<Node> getChildren();
-	public void setChild(Node child);
-	public void setChildren(List<Node> children);
+	public void addChild(Node child);
+	public void addChildren(List<Node> children);
 	public Node getParent();
+	public void setParent(Node parent);
 	public Node getGrandParent();
 	public String getName();
 }

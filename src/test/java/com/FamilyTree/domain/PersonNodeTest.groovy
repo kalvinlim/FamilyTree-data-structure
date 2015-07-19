@@ -25,14 +25,19 @@ public class PersonNodeTest {
 		robert = new PersonNode("Patrick")
 		mary = new PersonNode("Mary")
 		
-		nancy.children([adam, jill, carl])
-		jill.children([kevin])
-		carl.children([catherine, joseph])
+		nancy.addChildren([adam, jill, carl])
+		jill.addChildren([kevin])
+		carl.addChildren([catherine, joseph])
 		
-		kevin.children([samuel, george, james, aaron])
-		george.children([patrick, rober])
-		james.child(mary)
-								
+		kevin.addChildren([samuel, george, james, aaron])
+		george.addChildren([patrick, robert])
+		james.addChild(mary)
+		
+		[nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary]
+		.each{ person ->
+			person.root = nancy
+		}
+						
 		tree = new FamilyTree(nancy)
 	}
 	
@@ -51,7 +56,7 @@ public class PersonNodeTest {
 	}
 	@Test
 	public void testGetChildren(){
-		assert patrick.getChildren() == null
+		assert patrick.getChildren().size == 0
 		assert nancy.getChildren().containsAll(adam, jill, carl)
 		assert kevin.getChildren().containsAll(samuel, george, james, aaron)
 		assert carl.getChildren().containsAll(catherine, joseph)
