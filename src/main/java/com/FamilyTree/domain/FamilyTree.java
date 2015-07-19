@@ -1,7 +1,14 @@
 package com.FamilyTree.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Models a family tree containing collection of {@link PersonNode}
+ * and acts as entry point for any tree search operations
+ * @author Kalvin
+ *
+ */
 public class FamilyTree implements Tree {
 	private final Node root;
 	
@@ -10,15 +17,21 @@ public class FamilyTree implements Tree {
 	}
 	@Override
 	public Node getRoot() {
-		// TODO Auto-generated method stub
-		return null;
+		return root; 
 	}
 	@Override
-	public Node getNodeByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Node getNodeByName(String name) {		
+		return searchByName(root, name, new ArrayList<>());		
 	}
-
+	private Node searchByName(Node currentNode, String nodeName, List<Node> result){
+		if(currentNode.getName().equals(nodeName)){		
+			result.add(currentNode);			
+		}		
+		for(Node child : currentNode.getChildren()){	 
+			searchByName(child, nodeName, result);					
+		}				
+		return result.size() > 0 ? result.get(0)  : null;
+	}
 	@Override
 	public List<Node> getNodesWithNoSiblings() {
 		// TODO Auto-generated method stub
@@ -27,8 +40,18 @@ public class FamilyTree implements Tree {
 
 	@Override
 	public List<Node> getNodesWithNoChildren() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Node> result = new ArrayList<>();
+		
+		return searchNodesWithNoChildren(root, result);
+	}
+	private List<Node> searchNodesWithNoChildren(Node currentNode, List<Node> result){
+		if(currentNode.getChildren().size() == 0){
+			result.add(currentNode);
+		}
+		for(Node child : currentNode.getChildren()){	
+			searchNodesWithNoChildren(child, result);
+		}
+		return result;
 	}
 
 	@Override

@@ -3,6 +3,11 @@ package com.FamilyTree.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Models a single person in the family tree
+ * @author Kalvin
+ *
+ */
 public class PersonNode implements Node {
 	private final String name;
 	private Node root;
@@ -11,7 +16,7 @@ public class PersonNode implements Node {
 	
 	public PersonNode(String name){
 		this.name = name; 
-	}
+	}	
 
 	@Override
 	public Node getRoot() {
@@ -61,4 +66,10 @@ public class PersonNode implements Node {
 		return name;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonNode [name=" + name + "]";
+	}
+
+	
 }

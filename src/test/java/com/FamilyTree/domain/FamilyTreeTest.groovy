@@ -21,7 +21,7 @@ public class FamilyTreeTest {
 		james = new PersonNode("James")
 		aaron = new PersonNode("Aaron")
 		patrick = new PersonNode("Patrick")
-		robert = new PersonNode("Patrick")
+		robert = new PersonNode("Robert")
 		mary = new PersonNode("Mary")
 		
 		nancy.addChildren([adam, jill, carl])
@@ -48,8 +48,22 @@ public class FamilyTreeTest {
 	@Test
 	public void testGetNodeByName(){
 		assert tree.getNodeByName("Not in tree") == null
-		assert tree.getNodeByName("Nancy") == nancy			
+		assert tree.getNodeByName("Nancy") == nancy
+		assert tree.getNodeByName("Adam") == adam
+		assert tree.getNodeByName("Jill") == jill
+		assert tree.getNodeByName("Carl") == carl			
+		assert tree.getNodeByName("Kevin") == kevin
+		assert tree.getNodeByName("Catherine") == catherine
+		assert tree.getNodeByName("Joseph") == joseph
+		assert tree.getNodeByName("Samuel") == samuel
+		assert tree.getNodeByName("George") == george
+		assert tree.getNodeByName("James") == james
+		assert tree.getNodeByName("Aaron") == aaron
+		assert tree.getNodeByName("Patrick") == patrick
+		assert tree.getNodeByName("Robert") == robert
+		assert tree.getNodeByName("Mary") == mary		
 	}
+
 	@Test
 	public void testGetNodesWithNoSiblings(){
 		def nodesWithNoSiblings = tree.getNodesWithNoSiblings()

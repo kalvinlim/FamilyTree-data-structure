@@ -22,7 +22,7 @@ public class PersonNodeTest {
 		james = new PersonNode("James")
 		aaron = new PersonNode("Aaron")
 		patrick = new PersonNode("Patrick")
-		robert = new PersonNode("Patrick")
+		robert = new PersonNode("Robert")
 		mary = new PersonNode("Mary")
 		
 		nancy.addChildren([adam, jill, carl])
