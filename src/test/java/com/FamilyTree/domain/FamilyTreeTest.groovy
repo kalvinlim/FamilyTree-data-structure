@@ -31,7 +31,12 @@ public class FamilyTreeTest {
 		kevin.addChildren([samuel, george, james, aaron])
 		george.addChildren([patrick, robert])
 		james.addChild(mary)
-								
+		
+		[nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary]
+		.each{ person ->
+			person.setRoot(nancy)
+		}
+						
 		tree = new FamilyTree(nancy)
 	}
 	
@@ -63,7 +68,27 @@ public class FamilyTreeTest {
 		assert tree.getNodeByName("Robert") == robert
 		assert tree.getNodeByName("Mary") == mary		
 	}
-
+	@Test
+	public void testGetGrandParentByGrandChildName(){
+		assert tree.getNodeByName("Not in tree") == null
+		assert tree.getNodeByName("Nancy").grandParent == null
+		assert tree.getNodeByName("Adam").grandParent == null
+		assert tree.getNodeByName("Jill").grandParent == null
+		assert tree.getNodeByName("Carl").grandParent == null
+		
+		assert tree.getNodeByName("Kevin").grandParent == nancy
+		assert tree.getNodeByName("Catherine").grandParent == nancy
+		assert tree.getNodeByName("Joseph").grandParent == nancy
+		
+		assert tree.getNodeByName("Samuel").grandParent == jill
+		assert tree.getNodeByName("George").grandParent == jill
+		assert tree.getNodeByName("James").grandParent == jill
+		assert tree.getNodeByName("Aaron").grandParent == jill
+		
+		assert tree.getNodeByName("Patrick").grandParent == kevin
+		assert tree.getNodeByName("Robert").grandParent == kevin
+		assert tree.getNodeByName("Mary").grandParent == kevin
+	}
 	@Test
 	public void testGetNodesWithNoSiblings(){
 		def nodesWithNoSiblings = tree.getNodesWithNoSiblings()
@@ -84,6 +109,7 @@ public class FamilyTreeTest {
 	@Test
 	public void testGetRoot(){
 		assert tree.getRoot() == nancy
+		assert tree.getNodeByName("Patrick").getRoot() == nancy
 	}
 	
 	@Test

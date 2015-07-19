@@ -35,7 +35,7 @@ public class PersonNodeTest {
 		
 		[nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary]
 		.each{ person ->
-			person.root = nancy
+			person.setRoot(nancy)
 		}
 						
 		tree = new FamilyTree(nancy)
@@ -80,5 +80,10 @@ public class PersonNodeTest {
 	public void testGetName(){
 		assert nancy.getName() == "Nancy"
 		assert mary.getName() == "Mary"
+	}
+	
+	@Test
+	public void testToString(){
+		assert mary.toString() == "PersonNode [name=\"mary\"]"
 	}
 }
