@@ -34,8 +34,20 @@ public class FamilyTree implements Tree {
 	}
 	@Override
 	public List<Node> getNodesWithNoSiblings() {
-		// TODO Auto-generated method stub
-		return null;
+		return searchNodesWithNoSiblings(root, new ArrayList<Node>());
+	}
+	private List<Node> searchNodesWithNoSiblings(Node currentNode, List<Node> result){		
+		if(currentNode == currentNode.getRoot()){
+			result.add(currentNode);
+		}
+		Node parent = currentNode.getParent();
+		if(parent != null && parent.getChildren().size() == 1){
+			result.add(currentNode);
+		}
+		for(Node child : currentNode.getChildren()){	
+			searchNodesWithNoSiblings(child, result);
+		}
+		return result;
 	}
 
 	@Override
