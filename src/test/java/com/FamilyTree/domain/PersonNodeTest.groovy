@@ -84,6 +84,6 @@ public class PersonNodeTest {
 	
 	@Test
 	public void testToString(){
-		assert mary.toString() == "PersonNode [name=\"mary\"]"
+		assert mary.toString() == "PersonNode [name=Mary]" 
 	}
 }
