@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>PersonNode.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (Jul 20, 2015 12:31:42 AM)</a> &gt; <a href="../../index.html" class="el_group">FamilyTree</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.FamilyTree.domain</a> &gt; <span class="el_source">PersonNode.java</span></div><h1>PersonNode.java</h1><pre class="source lang-java linenums">package com.FamilyTree.domain;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Models a single person in the family tree
+ * @author Kalvin
+ *
+ */
+public class PersonNode implements Node {
+	private final String name;
+	private Node root;
+<span class="fc" id="L14">	private List&lt;Node&gt; children = new ArrayList&lt;&gt;();</span>
+	private Node parent;	
+	
+<span class="fc" id="L17">	public PersonNode(String name){</span>
+<span class="fc" id="L18">		this.name = name; </span>
+<span class="fc" id="L19">	}	</span>
+
+	@Override
+	public Node getRoot() {
+<span class="fc" id="L23">		return root;</span>
+	}
+
+	@Override
+	public void setRoot(Node root) {
+<span class="fc" id="L28">		this.root = root;</span>
+<span class="fc" id="L29">	}</span>
+
+	@Override
+	public List&lt;Node&gt; getChildren() {
+<span class="fc" id="L33">		return children;</span>
+	}
+
+	@Override
+	public void addChild(Node child) {
+<span class="fc" id="L38">		this.children.add(child);</span>
+<span class="fc" id="L39">		child.setParent(this);</span>
+<span class="fc" id="L40">	}</span>
+
+	@Override
+	public void addChildren(List&lt;Node&gt; children) {
+<span class="fc" id="L44">		this.children.addAll(children);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		for(Node child : children){</span>
+<span class="fc" id="L46">			child.setParent(this);</span>
+		}
+<span class="fc" id="L48">	}</span>
+
+	@Override
+	public Node getParent() {
+<span class="fc" id="L52">		return parent;</span>
+	}
+	@Override
+	public void setParent(Node parent) {
+<span class="fc" id="L56">		this.parent = parent;</span>
+<span class="fc" id="L57">	}</span>
+
+	@Override
+	public Node getGrandParent() {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		return parent != null ? parent.getParent() : null;</span>
+	}
+
+	@Override
+	public String getName() {
+<span class="fc" id="L66">		return name;</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="fc" id="L71">		return &quot;PersonNode [name=&quot; + name + &quot;]&quot;;</span>
+	}
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>AllTests (Jul 20, 2015 12:31:42 AM)</div></body></html>

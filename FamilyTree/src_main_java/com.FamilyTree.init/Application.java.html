@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Application.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (Jul 20, 2015 12:31:42 AM)</a> &gt; <a href="../../index.html" class="el_group">FamilyTree</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.FamilyTree.init</a> &gt; <span class="el_source">Application.java</span></div><h1>Application.java</h1><pre class="source lang-java linenums">package com.FamilyTree.init;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.FamilyTree.domain.FamilyTree;
+import com.FamilyTree.domain.Node;
+
+<span class="fc" id="L9">public class Application {</span>
+
+	public static void main(String[] args) {
+<span class="fc" id="L12">		FamilyTree tree = FamilyTree.generateDefaultTree();</span>
+<span class="fc" id="L13">		init(tree);				</span>
+<span class="fc" id="L14">	}</span>
+
+	private static void init(FamilyTree tree){
+<span class="fc" id="L17">		boolean running = true;</span>
+		
+<span class="fc" id="L19">		Scanner in = new Scanner(System.in);</span>
+<span class="fc" id="L20">		System.out.println(&quot;Family Tree Console \n&quot;);</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">		while(running){</span>
+			String choice;
+			
+			
+			
+<span class="fc" id="L26">			System.out.println(&quot;Please select a command #: &quot;);</span>
+<span class="fc" id="L27">			System.out.println(&quot;(1) Input grand child and return grand parent&quot;);</span>
+<span class="fc" id="L28">			System.out.println(&quot;(2) Print names with no siblings&quot;);</span>
+<span class="fc" id="L29">			System.out.println(&quot;(3) Print names with no children&quot;);</span>
+<span class="fc" id="L30">			System.out.println(&quot;(4) Print the name of the person with the largest # of grand children&quot;);</span>
+<span class="fc" id="L31">			System.out.println(&quot;(5) Draw Family Tree&quot;); </span>
+<span class="fc" id="L32">			System.out.println(&quot;(0) Exit \n&quot;);</span>
+			
+			
+<span class="fc" id="L35">			choice = in.nextLine();</span>
+
+			
+<span class="fc bfc" id="L38" title="All 2 branches covered.">			if(choice.equals(&quot;0&quot;)){</span>
+<span class="fc" id="L39">				running = false;</span>
+<span class="fc" id="L40">			}</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">			else if(choice.equals(&quot;1&quot;)){</span>
+<span class="fc" id="L42">				System.out.print(&quot;Please enter the name of the grand child: &quot;);</span>
+<span class="fc" id="L43">				String grandChild = in.nextLine();</span>
+<span class="fc" id="L44">				Node result = tree.getGrandParentNodeByGrandChildName(grandChild);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">				System.out.println(result == null ? &quot;Result does not exist in tree \n&quot; </span>
+<span class="fc" id="L46">						:  &quot;The grandparent of &quot; + grandChild  + &quot; is &quot; + result.getName() + &quot;\n&quot;);				</span>
+<span class="fc" id="L47">			}</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">			else if(choice.equals(&quot;2&quot;)){</span>
+<span class="fc" id="L49">				System.out.print(&quot;The following people have no siblings: &quot;);</span>
+<span class="fc" id="L50">				List&lt;Node&gt; noSib = tree.getNodesWithNoSiblings();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">				for(Node person : noSib){</span>
+<span class="fc" id="L52">					System.out.print(person.getName() + &quot;, &quot;);</span>
+				}
+<span class="fc" id="L54">				System.out.println(&quot;\n&quot;);</span>
+<span class="fc" id="L55">			}</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">			else if(choice.equals(&quot;3&quot;)){</span>
+<span class="fc" id="L57">				System.out.print(&quot;The following people have no children: &quot;);</span>
+<span class="fc" id="L58">				List&lt;Node&gt; noChildren = tree.getNodesWithNoChildren();</span>
+<span class="fc" id="L59">				String noChildrenResult = &quot;&quot;;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">				for(Node person : noChildren){</span>
+<span class="fc" id="L61">					System.out.print(person.getName() + &quot;, &quot;);</span>
+				}												
+<span class="fc" id="L63">				System.out.println(noChildrenResult + &quot;\n&quot;);</span>
+<span class="fc" id="L64">			}</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">			else if(choice.equals(&quot;4&quot;)){</span>
+<span class="fc" id="L66">				System.out.print(&quot;The following person has the greatest # of grand children: &quot;);</span>
+<span class="fc" id="L67">				Node mostGrandChildren = tree.getNodeWithMostGrandChildren();</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">				System.out.println(mostGrandChildren == null ? &quot;Not found\n&quot; :  mostGrandChildren.getName()+&quot;\n&quot;);				</span>
+<span class="fc" id="L69">			}</span>
+<span class="fc" id="L70">			else if(choice.equals(&quot;5&quot;)){</span>
+				
+			}
+			else {
+				
+			}
+				
+
+		}
+<span class="fc" id="L79">		System.out.println(&quot;Program terminated&quot;);  </span>
+<span class="fc" id="L80">		in.close();</span>
+<span class="fc" id="L81">	}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>AllTests (Jul 20, 2015 12:31:42 AM)</div></body></html>

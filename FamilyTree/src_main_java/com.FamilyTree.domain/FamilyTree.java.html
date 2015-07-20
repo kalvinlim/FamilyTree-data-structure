@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>FamilyTree.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (Jul 20, 2015 12:31:42 AM)</a> &gt; <a href="../../index.html" class="el_group">FamilyTree</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.FamilyTree.domain</a> &gt; <span class="el_source">FamilyTree.java</span></div><h1>FamilyTree.java</h1><pre class="source lang-java linenums">package com.FamilyTree.domain;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+/**
+ * Models a family tree containing collection of {@link PersonNode}
+ * and acts as entry point for any tree search operations.  
+ * Most of this application's core search logic lies within this class
+ * @author Kalvin
+ *
+ */
+public class FamilyTree implements Tree {
+	private final Node root;
+	
+<span class="fc" id="L19">	public FamilyTree(Node root){</span>
+<span class="fc" id="L20">		this.root = root;</span>
+<span class="fc" id="L21">	}</span>
+	
+	@Override
+	public Node getRoot() {
+<span class="fc" id="L25">		return root; </span>
+	}
+	
+	@Override
+	public Node getNodeByName(String name) {		
+<span class="fc" id="L30">		return searchByName(root, name, new ArrayList&lt;&gt;());		</span>
+	}
+	
+	/**
+	 * Recursive search of {@link FamilyTree} node collection
+	 * @param currentNode Starter node, typically the root
+	 * @param nodeName String Name of target node to search for (see {@link PersonNode} &quot;name&quot; field)
+	 * @param result List&lt;Node&gt; wrapper to persist search result.  Dirty hack to pass by reference
+	 * @return Node whose name equals the nodeName search param
+	 */
+	private Node searchByName(Node currentNode, String nodeName, List&lt;Node&gt; result){
+<span class="fc bfc" id="L41" title="All 2 branches covered.">		if(currentNode.getName().equals(nodeName)){		</span>
+<span class="fc" id="L42">			result.add(currentNode);			</span>
+		}		
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		for(Node child : currentNode.getChildren()){	 </span>
+<span class="fc" id="L45">			searchByName(child, nodeName, result);					</span>
+		}				
+<span class="fc bfc" id="L47" title="All 2 branches covered.">		return !result.isEmpty() ? result.get(0)  : null;</span>
+	}
+	
+	@Override
+	public Node getGrandParentNodeByGrandChildName(String name) {
+<span class="fc" id="L52">		Node result = searchByName(root, name, new ArrayList&lt;&gt;());</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		return result == null ? null : result.getGrandParent();</span>
+	}
+	@Override
+	public List&lt;Node&gt; getNodesWithNoSiblings() {
+<span class="fc" id="L57">		return searchNodesWithNoSiblings(root, new ArrayList&lt;Node&gt;());</span>
+	}
+	private List&lt;Node&gt; searchNodesWithNoSiblings(Node currentNode, List&lt;Node&gt; result){		
+<span class="fc bfc" id="L60" title="All 2 branches covered.">		if(currentNode == currentNode.getRoot()){</span>
+<span class="fc" id="L61">			result.add(currentNode);</span>
+		}
+<span class="fc" id="L63">		Node parent = currentNode.getParent();</span>
+<span class="fc bfc" id="L64" title="All 4 branches covered.">		if(parent != null &amp;&amp; parent.getChildren().size() == 1){</span>
+<span class="fc" id="L65">			result.add(currentNode);</span>
+		}
+<span class="fc bfc" id="L67" title="All 2 branches covered.">		for(Node child : currentNode.getChildren()){	</span>
+<span class="fc" id="L68">			searchNodesWithNoSiblings(child, result);</span>
+		}
+<span class="fc" id="L70">		return result;</span>
+	}
+
+	@Override
+	public List&lt;Node&gt; getNodesWithNoChildren() {
+<span class="fc" id="L75">		List&lt;Node&gt; result = new ArrayList&lt;&gt;();</span>
+		
+<span class="fc" id="L77">		return searchNodesWithNoChildren(root, result);</span>
+	}
+	private List&lt;Node&gt; searchNodesWithNoChildren(Node currentNode, List&lt;Node&gt; result){
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		if(currentNode.getChildren().isEmpty()){</span>
+<span class="fc" id="L81">			result.add(currentNode);</span>
+		}
+<span class="fc bfc" id="L83" title="All 2 branches covered.">		for(Node child : currentNode.getChildren()){	</span>
+<span class="fc" id="L84">			searchNodesWithNoChildren(child, result);</span>
+		}
+<span class="fc" id="L86">		return result;</span>
+	}
+
+	@Override
+	public Node getNodeWithMostGrandChildren() {		
+<span class="fc" id="L91">		SortedMap&lt;Integer, Node&gt; result = new TreeMap&lt;&gt;();</span>
+<span class="fc" id="L92">		return searchNodeWithMostGrandChildren(root, result);</span>
+	}
+	
+	private Node searchNodeWithMostGrandChildren(Node currentNode, SortedMap&lt;Integer, Node&gt; result){
+<span class="fc bfc" id="L96" title="All 2 branches covered.">		if(!currentNode.getChildren().isEmpty()){</span>
+<span class="fc" id="L97">			int counter = 0;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">			for(Node child : currentNode.getChildren()){				</span>
+<span class="fc" id="L99">				counter += child.getChildren().size();</span>
+			}
+<span class="fc bfc" id="L101" title="All 2 branches covered.">			if(counter &gt; 0){</span>
+<span class="fc" id="L102">				result.put(counter, currentNode);</span>
+			}
+		}				
+<span class="fc bfc" id="L105" title="All 2 branches covered.">		for(Node child : currentNode.getChildren()){	</span>
+<span class="fc" id="L106">			searchNodeWithMostGrandChildren(child, result);</span>
+		}
+<span class="fc bfc" id="L108" title="All 2 branches covered.">		return result.isEmpty() ? null : result.get(result.lastKey());		</span>
+	}
+	
+	
+	@Override
+	public String toString() {
+<span class="fc" id="L114">		return &quot;FamilyTree [root=&quot; + root + &quot;]&quot;;</span>
+	}
+
+	/**
+	 * Generate default tree
+	 * @return &quot;pre-built&quot; family tree for immediate use
+	 */
+	public static FamilyTree generateDefaultTree(){
+		PersonNode nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary;
+		
+<span class="fc" id="L124">		nancy = new PersonNode(&quot;Nancy&quot;);</span>
+<span class="fc" id="L125">		adam = new PersonNode(&quot;Adam&quot;);</span>
+<span class="fc" id="L126">		jill = new PersonNode(&quot;Jill&quot;);</span>
+<span class="fc" id="L127">		carl = new PersonNode(&quot;Carl&quot;);</span>
+<span class="fc" id="L128">		kevin = new PersonNode(&quot;Kevin&quot;);</span>
+<span class="fc" id="L129">		catherine = new PersonNode(&quot;Catherine&quot;);</span>
+<span class="fc" id="L130">		joseph = new PersonNode(&quot;Joseph&quot;);</span>
+<span class="fc" id="L131">		samuel = new PersonNode(&quot;Samuel&quot;);</span>
+<span class="fc" id="L132">		george = new PersonNode(&quot;George&quot;);</span>
+<span class="fc" id="L133">		james = new PersonNode(&quot;James&quot;);</span>
+<span class="fc" id="L134">		aaron = new PersonNode(&quot;Aaron&quot;);</span>
+<span class="fc" id="L135">		patrick = new PersonNode(&quot;Patrick&quot;);</span>
+<span class="fc" id="L136">		robert = new PersonNode(&quot;Robert&quot;);</span>
+<span class="fc" id="L137">		mary = new PersonNode(&quot;Mary&quot;);</span>
+
+<span class="fc" id="L139">		nancy.addChildren(Arrays.asList(adam, jill, carl));</span>
+<span class="fc" id="L140">		jill.addChildren(Arrays.asList(kevin));</span>
+<span class="fc" id="L141">		carl.addChildren(Arrays.asList(catherine, joseph));</span>
+		
+<span class="fc" id="L143">		kevin.addChildren(Arrays.asList(samuel, george, james, aaron));</span>
+<span class="fc" id="L144">		george.addChildren(Arrays.asList(patrick, robert));</span>
+<span class="fc" id="L145">		james.addChild(mary);</span>
+		
+<span class="fc" id="L147">		List&lt;Node&gt; allNodes = Arrays.asList(nancy, adam, jill, carl, kevin, catherine, joseph, samuel, george, james, aaron, patrick, robert, mary);</span>
+
+<span class="fc bfc" id="L149" title="All 2 branches covered.">		for(Node node : allNodes){</span>
+<span class="fc" id="L150">			node.setRoot(nancy);</span>
+		}		
+		
+<span class="fc" id="L153">		return new FamilyTree(nancy);</span>
+	}
+	@Override
+	public String drawTree() {
+		// TODO Auto-generated method stub
+<span class="fc" id="L158">		return null;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span>AllTests (Jul 20, 2015 12:31:42 AM)</div></body></html>
