@@ -116,7 +116,7 @@ public class FamilyTreeTest {
 	
 	@Test
 	public void testDrawFamilyTree(){
-		
+		tree.drawTree()
 	}
 	
 	@Test 

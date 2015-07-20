@@ -8,7 +8,8 @@ import java.util.TreeMap;
 
 /**
  * Models a family tree containing collection of {@link PersonNode}
- * and acts as entry point for any tree search operations
+ * and acts as entry point for any tree search operations.  
+ * Most of this application's core search logic lies within this class
  * @author Kalvin
  *
  */
@@ -18,14 +19,24 @@ public class FamilyTree implements Tree {
 	public FamilyTree(Node root){
 		this.root = root;
 	}
+	
 	@Override
 	public Node getRoot() {
 		return root; 
 	}
+	
 	@Override
 	public Node getNodeByName(String name) {		
 		return searchByName(root, name, new ArrayList<>());		
 	}
+	
+	/**
+	 * Recursive search of {@link FamilyTree} node collection
+	 * @param currentNode Starter node, typically the root
+	 * @param nodeName String Name of target node to search for (see {@link PersonNode} "name" field)
+	 * @param result List<Node> wrapper to persist search result.  Dirty hack to pass by reference
+	 * @return Node whose name equals the nodeName search param
+	 */
 	private Node searchByName(Node currentNode, String nodeName, List<Node> result){
 		if(currentNode.getName().equals(nodeName)){		
 			result.add(currentNode);			
@@ -140,6 +151,11 @@ public class FamilyTree implements Tree {
 		}		
 		
 		return new FamilyTree(nancy);
+	}
+	@Override
+	public String drawTree() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

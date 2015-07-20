@@ -9,4 +9,5 @@ public interface Tree {
 	public List<Node> getNodesWithNoSiblings();
 	public List<Node> getNodesWithNoChildren();
 	public Node getNodeWithMostGrandChildren();
+	public String drawTree();
 }
