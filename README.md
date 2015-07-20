@@ -12,13 +12,13 @@ Coding exercise to implement a family tree data structure
 * [EclEmma Java Code Coverage](http://marketplace.eclipse.org/content/eclemma-java-code-coverage)
 
 ### Gradle Dependencies
-* [Junit](https://github.com/junit-team/junit/wiki/Use-with-Gradle)
+* [JUnit](https://github.com/junit-team/junit/wiki/Use-with-Gradle)
 
 
 ### Installation
 ```
 ./gradlew build
-./gradle run
+./gradlew run
 ```
 See [[build.gradle]](https://github.com/kalvinlim/FamilyTree-data-structure/blob/master/build.gradle) for additional information
 
