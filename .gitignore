@@ -1,3 +1,2 @@
 *.class
-*.jar
 .gradle/2.5/taskArtifacts/cache.properties.lock
