@@ -70,24 +70,24 @@ public class FamilyTreeTest {
 	}
 	@Test
 	public void testGetGrandParentByGrandChildName(){
-		assert tree.getNodeByName("Not in tree") == null
-		assert tree.getNodeByName("Nancy").grandParent == null
-		assert tree.getNodeByName("Adam").grandParent == null
-		assert tree.getNodeByName("Jill").grandParent == null
-		assert tree.getNodeByName("Carl").grandParent == null
+		assert tree.getGrandParentNodeByGrandChildName("Not in tree") == null
+		assert tree.getGrandParentNodeByGrandChildName("Nancy") == null
+		assert tree.getGrandParentNodeByGrandChildName("Adam") == null
+		assert tree.getGrandParentNodeByGrandChildName("Jill") == null
+		assert tree.getGrandParentNodeByGrandChildName("Carl") == null
 		
-		assert tree.getNodeByName("Kevin").grandParent == nancy
-		assert tree.getNodeByName("Catherine").grandParent == nancy
-		assert tree.getNodeByName("Joseph").grandParent == nancy
+		assert tree.getGrandParentNodeByGrandChildName("Kevin") == nancy
+		assert tree.getGrandParentNodeByGrandChildName("Catherine") == nancy
+		assert tree.getGrandParentNodeByGrandChildName("Joseph") == nancy
 		
-		assert tree.getNodeByName("Samuel").grandParent == jill
-		assert tree.getNodeByName("George").grandParent == jill
-		assert tree.getNodeByName("James").grandParent == jill
-		assert tree.getNodeByName("Aaron").grandParent == jill
+		assert tree.getGrandParentNodeByGrandChildName("Samuel") == jill
+		assert tree.getGrandParentNodeByGrandChildName("George") == jill
+		assert tree.getGrandParentNodeByGrandChildName("James") == jill
+		assert tree.getGrandParentNodeByGrandChildName("Aaron") == jill
 		
-		assert tree.getNodeByName("Patrick").grandParent == kevin
-		assert tree.getNodeByName("Robert").grandParent == kevin
-		assert tree.getNodeByName("Mary").grandParent == kevin
+		assert tree.getGrandParentNodeByGrandChildName("Patrick") == kevin
+		assert tree.getGrandParentNodeByGrandChildName("Robert") == kevin
+		assert tree.getGrandParentNodeByGrandChildName("Mary") == kevin
 	}
 	@Test
 	public void testGetNodesWithNoSiblings(){

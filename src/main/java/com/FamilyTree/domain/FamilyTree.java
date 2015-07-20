@@ -35,6 +35,12 @@ public class FamilyTree implements Tree {
 		}				
 		return !result.isEmpty() ? result.get(0)  : null;
 	}
+	
+	@Override
+	public Node getGrandParentNodeByGrandChildName(String name) {
+		Node result = searchByName(root, name, new ArrayList<>());
+		return result == null ? null : result.getGrandParent();
+	}
 	@Override
 	public List<Node> getNodesWithNoSiblings() {
 		return searchNodesWithNoSiblings(root, new ArrayList<Node>());
@@ -142,4 +148,5 @@ public class FamilyTree implements Tree {
 		
 		return new FamilyTree(nancy);
 	}
+
 }
