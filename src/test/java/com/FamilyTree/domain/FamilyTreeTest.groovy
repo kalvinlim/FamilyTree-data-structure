@@ -103,7 +103,9 @@ public class FamilyTreeTest {
 	}
 	@Test
 	public void testGetNodeWithMostGrandChildren(){
-		assert tree.getNodeWithMostGrandChildren() == jill
+		assert tree.getNodeWithMostGrandChildren() == jill			
+		tree = new FamilyTree(new PersonNode("root"))
+		assert tree.getNodeWithMostGrandChildren() == null 
 	}
 		
 	@Test

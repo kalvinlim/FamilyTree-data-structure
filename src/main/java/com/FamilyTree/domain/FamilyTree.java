@@ -82,26 +82,19 @@ public class FamilyTree implements Tree {
 	}
 	
 	private Node searchNodeWithMostGrandChildren(Node currentNode, SortedMap<Integer, Node> result){
-
-		//System.out.println(currentNode);
-		
 		if(!currentNode.getChildren().isEmpty()){
 			int counter = 0;
 			for(Node child : currentNode.getChildren()){				
 				counter += child.getChildren().size();
 			}
-		
-			//System.out.println(currentNode + " has " + counter);
 			if(counter > 0){
 				result.put(counter, currentNode);
 			}
-		}
-		
+		}				
 		for(Node child : currentNode.getChildren()){	
 			searchNodeWithMostGrandChildren(child, result);
 		}
-		//System.out.println(result.get(result.lastKey()));
-		return result.get(result.lastKey());		
+		return result.isEmpty() ? null : result.get(result.lastKey());		
 	}
 	
 	
