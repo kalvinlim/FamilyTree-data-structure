@@ -1,5 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = 'com.FamilyTree.init.Application'
 
 repositories {
     mavenCentral()
@@ -13,6 +16,15 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+
+run {
+	standardInput = System.in
+}
+
 dependencies {
 	testCompile 'junit:junit:4.12'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.5'
 }
