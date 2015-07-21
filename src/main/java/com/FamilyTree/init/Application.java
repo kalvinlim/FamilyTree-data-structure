@@ -20,9 +20,7 @@ public class Application {
 		System.out.println("Family Tree Console \n");
 		while(running){
 			String choice;
-			
-			
-			
+
 			System.out.println("Please select a command #: ");
 			System.out.println("(1) Input grand child and return grand parent");
 			System.out.println("(2) Print names with no siblings");
@@ -31,9 +29,7 @@ public class Application {
 			System.out.println("(5) Draw Family Tree"); 
 			System.out.println("(0) Exit \n");
 			
-			
 			choice = in.nextLine();
-
 			
 			if(choice.equals("0")){
 				running = false;
@@ -73,12 +69,10 @@ public class Application {
 			else {
 				
 			}
-				
 
 		}
 		System.out.println("Program terminated");  
 		in.close();
 	}
-
 
 }

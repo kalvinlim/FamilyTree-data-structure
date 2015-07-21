@@ -70,6 +70,5 @@ public class PersonNode implements Node {
 	public String toString() {
 		return "PersonNode [name=" + name + "]";
 	}
-
 	
 }
